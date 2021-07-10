@@ -54,6 +54,9 @@ function App() {
     } else
     if (elem === '-') {
         minus(displayContent, prevContent)
+    } else
+    if (elem === 'x') {
+        mult(displayContent , prevContent)
     }
   }
 
@@ -67,6 +70,12 @@ function App() {
     const minus = parseInt(b) - parseInt(a);
     setDisplayContent(minus.toString());
     setPrevContent(minus.toString());
+  }
+
+  function mult(a, b){
+    const mult = parseInt(b) * parseInt(a);
+    setDisplayContent(mult.toString());
+    setPrevContent(mult.toString());
   }
 
 
