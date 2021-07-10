@@ -1,65 +1,50 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
+import Button from "./Components/Button";
+import Display from "./Components/Display";
 
 
 import * as S from './styled';
 
-import { buttonChar } from './Assets/assets'
-
-//COMPONENTS
-import Button from "./Button";
-import Display from "./Display";
+//BUTTON DATA IMPORT
+import { buttonData } from './data';
 
 function App() {
 
+
+
   const [displayContent, setDisplayContent] = useState('0');
-  const [prevContent, setPrevContent] = useState('0')
-  const [operation, setOperation] = useState();
+  const [prevContent, setPrevContent] = useState(displayContent)
+  const [operation, setOperation] = useState('');
 
+  function checkButtonType(isOperation, buttonContent) {
+    if (!isOperation) {
+      if (displayContent === prevContent) {
+        setDisplayContent(buttonContent)
+      } else {
+        setDisplayContent(displayContent + buttonContent)
+      }
+    } else {
 
-
-  function buttonAction(buttonValues) {
-    if (buttonValues.type === 'number') {
-        numberAction(buttonValues);
-    } else if (buttonValues.type === 'action') {
-        operatorAction(buttonValues);
+      setOperation(buttonContent)
+      if(buttonContent === '+'){
+      const value = parseInt(displayContent) + parseInt(prevContent)
+      setDisplayContent(value.toString())
+      setPrevContent(value.toString())
+      }
     }
   }
 
 
-  function numberAction({ value, type} ){
-      if(displayContent === prevContent){
-        setDisplayContent(value);
-      }else{
-        setDisplayContent(displayContent + value);
-      }
-  }
-
-  function operatorAction({ value, type }){
-    
-      if(!operation){
-        setPrevContent(displayContent)
-        setOperation(value)
-      }else{
-        if(operation === '+'){
-          const sum = parseInt(displayContent) + parseInt(prevContent)
-          console.log(sum)
-          setPrevContent(sum);
-          setDisplayContent(sum)
-          
-        }
-      }
-  
-  } 
-
-
   return (
     <>
+
       <h2>Calculadora React</h2>
-      <h3>{prevContent}</h3>
+      <h3>OPERAÇÃO: {operation}</h3>
+      <h3>teste: {prevContent}</h3>
       <S.Content >
         <Display displayContent={displayContent} setDisplayContent={setDisplayContent} />
-        {buttonChar.map((elem) => {
-          return <Button key={elem.value} buttonValues={elem} action={buttonAction} />
+        {buttonData.map((elem) => {
+          return <Button buttonContent={elem.value} isOperation={elem.isOperation} checkButtonType={checkButtonType} />
         })}
       </S.Content>
     </>
