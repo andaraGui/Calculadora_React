@@ -1,15 +1,14 @@
 import * as S from './styled'
 
-export default function Display({ displayContent, setDisplayContent }){
+export default function Display({ content , setContent }){
     
-    function changeHandler(e){  
-        setDisplayContent(e.target.value)
+    function changeHandler(e){
+        setContent(e.target.value)
     }
-
+    
     return(
         <>
-            <S.DisplayInput value={displayContent} onChange={changeHandler} type="text"/>
+            <S.Display type="text" onChange={changeHandler} value={content}/>
         </>
-    );    
-
+    );
 }

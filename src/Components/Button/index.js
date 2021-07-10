@@ -1,14 +1,15 @@
-import * as S from './styled';
+import * as S from './styled'
 
-export default function Button({buttonContent, isOperation, checkButtonType}){
+
+export default function Display({ buttonValue , action }){
 
     function buttonHandler(){
-        checkButtonType(isOperation, buttonContent)
+        action(buttonValue);
     }
 
     return(
-        <>
-            <S.Button onClick={buttonHandler}>{buttonContent}</S.Button>
+        <>  
+            <S.Button onClick={buttonHandler} >{buttonValue}</S.Button>
         </>
     );
 }

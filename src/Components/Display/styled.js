@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const DisplayInput = styled.input`
+export const Display = styled.input`
     width: 100%;
 `
