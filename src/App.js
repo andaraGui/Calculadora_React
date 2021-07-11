@@ -9,56 +9,74 @@ function App() {
 
   const [displayContent, setDisplayContent] = useState('0');
   const [prevContent, setPrevContent] = useState('0');
-  const [storeOperation, setStoreOperation] = useState('')
-  const [lockOperation, setLockOperation] = useState(false)
-  const [allowChangeOperation, setAllowChangeOperation] = useState(false)
+  const [storeOperation, setStoreOperation] = useState('');
+  const [lockOperation, setLockOperation] = useState(false);
+
 
 
   function numberAction(buttonValue) {
-    if (lockOperation === true) {
-      setLockOperation(false)
-    }
     if (displayContent === prevContent) {
       setDisplayContent(buttonValue);
     } else {
-      setDisplayContent(displayContent + buttonValue);
+      setDisplayContent(displayContent + buttonValue)
     }
+    if (lockOperation === false) {
+      setLockOperation(true)
+    }
+   
   }
 
 
   function operatorAction(buttonValue) {
-
-    if (storeOperation === '') {
-      setStoreOperation(buttonValue);
-      setPrevContent(displayContent);
-    } else if (buttonValue === storeOperation) {
-      if (lockOperation === false) {
-        chooseOperation(storeOperation);
-        setLockOperation(true)
-      }
-    } else {
+    setPrevContent(displayContent)
+    if (lockOperation === true) {
       chooseOperation(storeOperation);
+      setStoreOperation(buttonValue);
+    } else {
       setStoreOperation(buttonValue)
     }
+    
+    
   }
 
-  function clearMem(){
-    setDisplayContent('0');
-    setPrevContent('0')
+
+  useEffect(() => {
+    if(lockOperation === true){
+      console.log('true')
+    }else{
+      console.log('false')
+    }
+  }, [lockOperation])
+
+
+  function equals(a, b, op) {
+
   }
 
   function chooseOperation(elem) {
-    
+
     if (elem === '+') {
-        sum(displayContent, prevContent)
+      sum(displayContent, prevContent)
     } else
-    if (elem === '-') {
+      if (elem === '-') {
         minus(displayContent, prevContent)
-    } else
-    if (elem === 'x') {
-        mult(displayContent , prevContent)
-    }
+      } else
+        if (elem === 'x') {
+          mult(displayContent, prevContent)
+        }
+        setLockOperation(false)
   }
+
+
+
+
+
+  function clearMem() {
+    setDisplayContent('0');
+    setPrevContent('0')
+    setStoreOperation('')
+  }
+
 
   function sum(a, b) {
     const sum = parseInt(a) + parseInt(b);
@@ -72,17 +90,13 @@ function App() {
     setPrevContent(minus.toString());
   }
 
-  function mult(a, b){
+  function mult(a, b) {
     const mult = parseInt(b) * parseInt(a);
     setDisplayContent(mult.toString());
     setPrevContent(mult.toString());
   }
 
 
-
-  useEffect(() => {
-    console.log(lockOperation)
-  }, [lockOperation])
 
   return (
     <>
