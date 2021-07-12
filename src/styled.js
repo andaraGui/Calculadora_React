@@ -6,7 +6,10 @@ export const Content = styled.div`
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 100px;
+    width: 300px;
+    height: 350px;
     border: 1px solid black;
     padding:10px 5px;
+    border-radius: 5px;
+    background-color: white;
 `
