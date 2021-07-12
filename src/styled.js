@@ -11,5 +11,15 @@ export const Content = styled.div`
     border: 1px solid black;
     padding:10px 5px;
     border-radius: 5px;
-    background-color: white;
+    background-color: #D1D9D9;
+`
+
+export const prevOp = styled.span`
+    color: gray;
+    position: relative;
+    top: 20px;
+    margin-left: 30px;
+    font-size: 14px;
+    font-weight: bold;
+
 `

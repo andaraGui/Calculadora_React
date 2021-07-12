@@ -9,16 +9,20 @@ function App() {
 
   const [displayContent, setDisplayContent] = useState('0');
   const [prevContent, setPrevContent] = useState('0');
-  const [ resetDisplayParamether ,setResetDisplayParamether] = useState('0')
   const [prevOperation, setPrevOperation] = useState([])
+  const [showPrevOperation, setShowPrevOperation] = useState(false)
   const [storeOperation, setStoreOperation] = useState('');
   const [lockOperation, setLockOperation] = useState(false);
+  const [resetDisplay, setResetDisplay] = useState(true);
 
 
 
   function numberAction(buttonValue) {
-    if (displayContent === resetDisplayParamether) {
+
+    if (resetDisplay === true) {
       setDisplayContent(buttonValue);
+      setResetDisplay(false)
+      setShowPrevOperation(false)
     } else {
       setDisplayContent(displayContent + buttonValue)
     }
@@ -30,7 +34,9 @@ function App() {
 
 
   function operatorAction(buttonValue) {
+
     setPrevContent(displayContent)
+
     if (lockOperation === true) {
       chooseOperation(storeOperation);
       setStoreOperation(buttonValue);
@@ -76,7 +82,9 @@ function App() {
             if (elem === '/') {
               div(displayContent, prevContent, storeOperation)
             }
-              setLockOperation(false)
+    setLockOperation(false)
+
+    setShowPrevOperation(true);
   }
 
   function clearMem(buttonValue) {
@@ -85,11 +93,10 @@ function App() {
       setPrevContent('0')
       setStoreOperation('')
       setPrevOperation([])
-    }else
-    if (buttonValue === "CE"){
-      setDisplayContent('0');
-      setResetDisplayParamether('0')
-    }
+    } else
+      if (buttonValue === "CE") {
+        setDisplayContent('0');
+      }
   }
 
   function negPos() {
@@ -128,25 +135,36 @@ function App() {
   }
 
 
-  function equals(a, b, op) {
+  function equals(op) {
     chooseOperation(op);
     setStoreOperation('')
   }
 
 
-useEffect(()=>{
-  setResetDisplayParamether(prevContent);
-},[prevContent])
+  useEffect(() => {
+    if (displayContent === '') {
+      setDisplayContent('0');
+      setResetDisplay(true);
+
+    }
+  }, [displayContent])
+
+
+  useEffect(() => {
+    setResetDisplay(true)
+  }, [prevContent])
+
 
 
   return (
     <>
-      <p>PREOPERATION: {prevOperation} = {prevContent}</p>
-      <p>OPERATOR: {storeOperation}</p>
+      <S.prevOp>
+        {showPrevOperation === true && prevOperation[1] !== undefined ? ` ${prevOperation[0]} ${prevOperation[1]} ${prevOperation[2]} = ` : `${prevContent !== '0' ? prevContent : ''} ${storeOperation}`}
+      </S.prevOp>
       <S.Content >
         <Display content={displayContent} setContent={setDisplayContent} />
-        <Button buttonValue={'CE'} action={clearMem} />
         <Button buttonValue={'C'} action={clearMem} />
+        <Button buttonValue={'CE'} action={clearMem} />
         <Button buttonValue={'<<'} action={clearNum} />
         <Button buttonValue={'/'} action={operatorAction} />
         <Button buttonValue={'7'} action={numberAction} />
@@ -167,6 +185,7 @@ useEffect(()=>{
         <Button buttonValue={'='} action={operatorAction} />
 
       </S.Content>
+
     </>
   );
 }

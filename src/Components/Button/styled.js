@@ -2,15 +2,19 @@ import styled from 'styled-components';
 
 export const Button = styled.button`
     width: 24%;
-    height: 15%;
+    height: 16%;
     margin:  1px;
     border-radius: 4px;
+    transition: color 0.2s ease;
     border: none;
-    transition: background-color 0.3s ease;
-    transition: color 0.3s ease;
+    color: gray;
+    font-size: 18px;
+    &:active{
+        font-size: 19px;
+    }
     &:hover{
-        
-        background-color: lightgray;
+        transition: background-color 0.2s ease-in;
+        background-color: #94D0CC;
         border: 1px solid white;
         color: #fff;
     }
