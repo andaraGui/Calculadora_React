@@ -158,6 +158,7 @@ function App() {
 
   return (
     <>
+    <h1>CALCULADORA</h1>
       <S.prevOp>
         {showPrevOperation === true && prevOperation[1] !== undefined ? ` ${prevOperation[0]} ${prevOperation[1]} ${prevOperation[2]} = ` : `${prevContent !== '0' ? prevContent : ''} ${storeOperation}`}
       </S.prevOp>

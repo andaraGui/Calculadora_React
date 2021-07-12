@@ -18,7 +18,7 @@ export const prevOp = styled.span`
     color: gray;
     position: relative;
     top: 20px;
-    margin-left: 30px;
+    margin-left: -10px;
     font-size: 14px;
     font-weight: bold;
 
